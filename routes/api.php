@@ -20,4 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('pictures',PictureController::class);
+Route::get('pictures/search/{name}', [PictureController::class,'search']);
 

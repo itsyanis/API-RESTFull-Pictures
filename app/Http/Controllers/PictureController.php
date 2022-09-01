@@ -68,6 +68,18 @@ class PictureController extends Controller
         return response()->json($picture);
     }
 
+
+    /**
+     * Search for a picture.
+     *
+     * @param  string  $name
+     * @return \Illuminate\Http\Response
+     */
+    public function search(string $name) {
+        $picture = Picture::where('title','like', '%'.$name.'%')->get();
+        return response()->json($picture);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -77,8 +89,8 @@ class PictureController extends Controller
     public function destroy($id)
     {
         $picture = Picture::findOrFail($id);
-        
-        if($picture->delete()){
+
+        if ($picture->delete()) {
             return response()->json("Picture deleted successfully");
         }
     }
