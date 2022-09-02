@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PictureController;
+use GuzzleHttp\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,10 +17,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
-Route::apiResource('pictures',PictureController::class);
+Route::post('register', [AuthController::class,'register']);
+Route::get('pictures', [PictureController::class,'index']);
 Route::get('pictures/search/{name}', [PictureController::class,'search']);
 
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::post('picture', [PictureController::class,'store']);
+    Route::get('picture/{picture}', [PictureController::class,'show']);
+    Route::put('picture/{picture}', [PictureController::class,'update']);
+    Route::delete('picture/{id}', [PictureController::class,'destroy']);
+});
