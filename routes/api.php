@@ -19,8 +19,10 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::post('register', [AuthController::class,'register']);
+Route::post('login',[AuthController::class,'login']);
 Route::get('pictures', [PictureController::class,'index']);
 Route::get('pictures/search/{name}', [PictureController::class,'search']);
+
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('picture', [PictureController::class,'store']);

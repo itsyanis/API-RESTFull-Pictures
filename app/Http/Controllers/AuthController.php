@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Http\Requests\LoginRequest;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\RegisterRequest;
 
 class AuthController extends Controller
@@ -23,4 +25,27 @@ class AuthController extends Controller
             'status' => 201
         ]);
     }
+
+
+    public function login(LoginRequest $request)
+    {
+        $user = User::where('email',$request->email)->firstOrFail();
+        
+        if(Hash::check($request->password,$user->password)) {
+           
+            $token = $user->createToken('userToken')->plainTextToken;
+
+            return response()->json([
+                'user' => $user,
+                'token'=> $token,
+                'status' => 200
+            ]);
+        }
+
+        return response()->json([
+            'message' => 'Login failed',
+            'status'  =>  401 
+        ]);
+    }
+    
 }
