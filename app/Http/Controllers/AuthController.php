@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\RegisterRequest;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -47,5 +48,13 @@ class AuthController extends Controller
             'status'  =>  401 
         ]);
     }
-    
+
+    public function logout() {
+        
+        Auth::user()->tokens()->delete();
+        return response()->json([
+            'message' => 'Logged out'
+        ]);
+    } 
+
 }

@@ -40,7 +40,7 @@ class PictureController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Picture  $picture
      * @return \Illuminate\Http\Response
      */
     public function show(Picture $picture)
@@ -54,7 +54,7 @@ class PictureController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Picture  $picture
      * @return \Illuminate\Http\Response
      */
     public function update(PictureRequest $request, Picture $picture)

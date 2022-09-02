@@ -29,4 +29,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('picture/{picture}', [PictureController::class,'show']);
     Route::put('picture/{picture}', [PictureController::class,'update']);
     Route::delete('picture/{id}', [PictureController::class,'destroy']);
+    Route::post('logout',[AuthController::class,'logout']);
 });
